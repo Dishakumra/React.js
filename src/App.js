@@ -2,38 +2,23 @@ import React from 'react';
 import Input from './components/Input';
 import Button from './components/Button';
 import Ul from './components/Ul';
+import Nav from './components/Nav';
+import {Route,Switch} from 'react-router-dom';
+import Home from './components/Home';
+import About from './components/About';
+import Todo from './components/Todo';
+import User from './components/User';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import Signout from './components/Signout';
+
+
 //import logo from './logo.svg';
 import './App.css';
-var submit="add";
+//var submit="add";
 
 class App extends React.Component
 {
-  state={
-    a:"",
-    todo:[]
-  }
-    handleInput=e=>{
-      const value=e.target.value;
-      this.setState({a:value})
-    }
-    addtodo=e=>{
-      const{a,todo}=this.state;
-      todo.push(a);
-      console.log(todo);
-      this.setState({todo:todo,a:" "});
-    }
-    deleteit=i=>{
-      console.log(i);
-      return()=>
-      {
-        const {todo}=this.state;
-        todo.splice(i,1);
-        console.log(todo);
-        this.setState({todo:todo});
-
-      }
-
-    }
 
 
   render()
@@ -41,22 +26,19 @@ class App extends React.Component
     //const {a}=this.state.a;
      return (
        <div className="App">
+       <Nav/>
        <header className="App-header">
-       <Input type="text" value={this.state.a} onChange={this.handleInput}/>
-       <br/>
-       <Button onClick={this.addtodo} value="Add"/>
-       <Ul
+       <Switch>
+       <Route exact path="/" component={Home}/>
+        <Route exact path="/about" component={About}/>
+        <Route exact path="/about/:id" component={User}/>
+         <Route path="/todo" component={Todo}/>
+         <Route path="/login" component={Login}/>
+         <Route path="/signup" component={Signup}/>
+         <Route path="/signout" component={Signout}/>
+         </Switch>
 
-         inside={
-         this.state.todo.map((item,i)=>
-         {
-       return (
-         <li key={i}>{item}<Button onClick={this.deleteit(i)} value="delete"/></li>
-       );
-     })
 
-       }
-       />
        </header>
        </div>
      );
